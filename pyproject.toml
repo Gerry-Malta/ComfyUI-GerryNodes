@@ -9,6 +9,6 @@ dependencies = []
 Repository = "https://github.com/Gerry-Malta/ComfyUI-GerryNodes"
 
 [tool.comfy]
-PublisherId = ""
+PublisherId = "gerry-malta"
 DisplayName = "Gerry Nodes"
 Icon = "https://raw.githubusercontent.com/Gerry-Malta/ComfyUI-GerryNodes/main/web/img/district_zero.png"
