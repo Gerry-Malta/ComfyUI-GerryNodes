@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-gerrynodes"
 description = "GS SmartSwitch - a boolean switch that automatically grays out widgets on whichever branch is inactive, including promoted parameters on the outer subgraph face, so dead calculation paths don't leave confusing editable fields lying around."
-version = "1.1.0"
+version = "1.1.1"
 license = { file = "LICENSE.txt" }
 dependencies = []
 
