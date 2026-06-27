@@ -8,9 +8,12 @@ or `on_false`) is not currently active, and grays out all of that node's
 widgets in place - so a dead calculation path doesn't leave editable-but-
 inert fields sitting around to confuse people.
 
-If any of those widgets are promoted to an outer subgraph face, the
-promoted parameter disappears from that outer view entirely while the
-interior widget stays visible, just grayed.
+It works the same way whether the nodes involved live in the main graph or
+inside a subgraph. If a grayed-out widget happens to be promoted to a
+subgraph's outer face, the promoted parameter disappears from that outer
+view entirely - so a packaged subgraph stays tidy and only shows the
+parameters that are actually relevant to its current state, instead of
+exposing irrelevant fields from whichever branch isn't in use.
 
 Nodes that feed **both** branches (shared ancestors - e.g. a width/height
 primitive both methods depend on) are left untouched, since they're still
@@ -38,8 +41,7 @@ search, as **GS SmartSwitch**.
 1. Wire your two candidate calculation paths into `on_true` and `on_false`.
 2. Flip the `boolean` widget - whichever branch is active stays fully
    visible; every node used *only* by the other branch grays out
-   automatically, both inside the subgraph and on any promoted parameter
-   exposed on the outer face.
+   automatically.
 3. The switch's `output` passes through whichever branch is selected, same
    as the native Switch node.
 4. Toggle `auto_disable` off if you want to temporarily turn the gray-out
@@ -48,10 +50,6 @@ search, as **GS SmartSwitch**.
 
 No target titles, no widget names, no manual setup - it figures out what's
 relevant on its own by walking the graph.
-
-A small District Zero badge is drawn in the node's top-right corner,
-loaded from `web/img/district_zero.png` bundled in this repo - no external
-network dependency.
 
 ## How it decides what to gray out
 
@@ -68,16 +66,6 @@ Every tick (~200ms), it:
 If more than one SmartSwitch in the graph claims the same node, it only
 goes back to active once *every* claiming switch has released it - so two
 switches sharing an ancestor can't fight over the same widget's state.
-
-### Why it also works on promoted parameters
-
-Setting a widget's `.hidden` property to `true` (without touching its
-layout size) turns out to be what makes ComfyUI's own subgraph-promotion
-system remove the promoted copy from the outer face - confirmed by direct
-testing. Purely cosmetic changes (just `.disabled` and a text label) don't
-trigger that same removal on their own. The interior widget stays in its
-normal position the whole time since its layout size is never touched -
-only the promoted copy disappears.
 
 ## Limitations
 
@@ -98,16 +86,6 @@ only the promoted copy disappears.
   this extension ever touched it in the new session), restoring it falls
   back to its default name rather than recovering that custom label - a
   minor cosmetic edge case.
-
-## Publishing updates
-
-```bash
-git add -A
-git commit -m "describe the change"
-git push
-```
-
-Bump `version` in `pyproject.toml` before pushing - the GitHub Action in
-`.github/workflows/publish.yml` auto-publishes to the Comfy Registry on any
-push to `main` that touches `pyproject.toml`. Re-publishing the same
-version number is rejected, so the bump has to happen first.
+- Nodes already placed on a canvas before a display-name change keep their
+  own frozen title - only newly-created instances pick up a renamed
+  display name automatically.
