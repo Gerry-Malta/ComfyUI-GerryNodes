@@ -1,5 +1,13 @@
 # ComfyUI GerryNodes
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/008609cc-33b4-40ee-b8bf-995decb19831" width="48" height="48" alt="ComfyUI">
+  <img src="https://github.com/user-attachments/assets/3baaab14-4ea5-490f-98e4-4f825073b6c5" width="48" height="48" alt="Claude">
+  <img src="https://github.com/user-attachments/assets/fc7de6d0-1ceb-4857-8836-13dd2e31b23d" width="48" height="48" alt="NanoBanana">
+  <img src="https://github.com/user-attachments/assets/060de070-8128-4da5-8540-606eb8278507" width="48" height="48" alt="Ollama">
+  <img src="https://github.com/user-attachments/assets/609d3dbc-9a05-4317-8019-6103f7868027" width="48" height="48" alt="District Zero">
+</p>
+
 ## GS SmartSwitch
 
 A drop-in replacement for ComfyUI's native `Switch`, with one extra trick:
@@ -7,6 +15,11 @@ it traces every node feeding **exclusively** into whichever branch (`on_true`
 or `on_false`) is not currently active, and grays out all of that node's
 widgets in place - so a dead calculation path doesn't leave editable-but-
 inert fields sitting around to confuse people.
+
+
+<img width="2693" height="1409" alt="Capture2" src="https://github.com/user-attachments/assets/9ba2fe0b-dc56-484d-8aeb-44a40970891b" />
+<img width="2622" height="1251" alt="Capture1" src="https://github.com/user-attachments/assets/2c15c833-7f85-4504-bee0-f8468ec71dd6" />
+
 
 It works the same way whether the nodes involved live in the main graph or
 inside a subgraph. If a grayed-out widget happens to be promoted to a
